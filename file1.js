@@ -1,3 +1,10 @@
-const {a: x} = require('./file2.js');
+const { a } = require('./file2.js');
+const { a: x } = require('./file3.js');
+// const { add } = require('./utils/add.js');
+// const { subs } = require('./utils/subs.js');
 
-console.log(x);
+const { add, subs } = require("./utils");
+
+// console.log(a, x);
+console.log(add(15, 10));
+console.log(subs(15, 10));
