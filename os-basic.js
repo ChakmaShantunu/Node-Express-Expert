@@ -18,8 +18,10 @@ console.log("CPU Speed: ", cpus[0].speed);
 console.log("-".repeat(50));
 const totalMem = os.totalmem();
 const freeMem = os.freemem();
+const usedMem = totalMem - freeMem
 console.log("Total Memory: ", (totalMem / 1024 / 1024 / 1024).toFixed(2), "GB");
 console.log("Free Memory: ", (freeMem / 1024 / 1024 / 1024).toFixed(2), "GB");
+console.log("Used Memory: ", (usedMem / 1024 / 1024 / 1024).toFixed(2), "%");
 console.log("-".repeat(50));
 
 const upTime = os.uptime();
