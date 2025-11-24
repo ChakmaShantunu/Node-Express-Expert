@@ -48,14 +48,37 @@ const testFiles = [
 function initializeDirectories() {
     if (!fs.existsSync(sourdeDir)) {
         fs.mkdirSync(sourdeDir, { recursive: true });
-        
+
         testFiles.forEach(file => {
             fs.writeFileSync(path.join(sourdeDir, file), `Content of ${file}`);
         });
     }
 
     console.log("Messy directories files are created");
+
+    if (!fs.existsSync(organizedDir)) {
+        fs.mkdirSync(organizedDir, { recursive: true });
+    }
+
+    Object.keys(categories).forEach(category => {
+        const categoryPath = path.join(organizedDir, category);
+        if (!fs.existsSync(categoryPath)) {
+            fs.mkdirSync(categoryPath);
+        }
+    });
 }
 
-initializeDirectories();
+function getCategory(fileName) {
+    const ext = path.extname(fileName).toLowerCase();
+    for(const [category, extensions] of Object.entries(categories))
+    {
+        if(extensions.includes(ext)) {
+            return category;
+        }
+    }
+
+    return "others";
+}
+
+// initializeDirectories();
 
