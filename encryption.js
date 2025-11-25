@@ -11,7 +11,25 @@ function encrypt(text) {
     encrypted += cipher.final('hex');
 
     return {
-        iv: iv.toString(),
+        iv: iv.toString('hex'),
         encryptedData: encrypted
     }
 }
+
+function decrypt(encryptedData, ivHex) {
+    const decipher = crypto.createDecipheriv(algorithm, key, Buffer.from(ivHex, 'hex'));
+    let decrypted = decipher.update(encryptedData, 'hex', 'utf-8');
+    decrypted += decipher.final('utf-8');
+    return decrypted
+}
+
+console.log("Encryption Data : ");
+const sensitiveData = "My credit card: 4242 4242 4242";
+console.log("Original data: ", sensitiveData);
+const encrypted = encrypt(sensitiveData);
+console.log("Encrypted : ", encrypted);
+
+console.log("Decrpted Data: ");
+const decrypted = decrypt(encrypted.encryptedData, encrypted.iv);
+console.log(("Decryption: ", decrypted));
+console.log("match : ", sensitiveData === decrypted);
